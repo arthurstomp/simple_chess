@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const AppWrapper = styled.div``;
+export const AppWrapper = styled.div`
+  text-align: center;
+`;
 
 export const HeaderWrapper = styled.div`
   min-height: 50px;
