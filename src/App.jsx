@@ -1,6 +1,4 @@
-import logo from "./logo.svg";
-import "./App.css";
-
+import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import {
@@ -14,7 +12,7 @@ import { ConnectLichess, Challenge, LichessCallback } from "./components";
 
 function App() {
   return (
-    <AppWrapper className="App">
+    <AppWrapper>
       <Router>
         <HeaderWrapper>
           <HeaderTitle>Simple Chess</HeaderTitle>

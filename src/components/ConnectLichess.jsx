@@ -1,3 +1,4 @@
+import React from 'react'
 import { CenteredContent, Button } from "./../style_components";
 
 import Lichess from "./../utils/lichess.js";
