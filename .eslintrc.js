@@ -12,5 +12,11 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react"],
-  rules: {},
+  rules: {
+    "no-debugger": "off",
+    "no-unused-expressions": "warn",
+    "no-unused-labels": "warn",
+    "no-unused-vars": "warn",
+    "react/prop-types": "warn"
+  },
 };
