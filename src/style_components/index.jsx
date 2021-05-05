@@ -18,7 +18,9 @@ export const ContentWrapper = styled.div``;
 export const CenteredContent = styled.div`
   width: 100%;
   min-height: 300px;
-  background: purple;
+  height: 100%;
 `;
 
-export const Button = styled.button``;
+export const Button = styled.button`
+  font-size: 1.5rem;
+`;
