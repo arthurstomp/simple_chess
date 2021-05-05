@@ -67,7 +67,7 @@ const ChallengeForm = props => {
             <Field name="opponentUsername">
               {({ input, meta }) => (
                 <FormField>
-                  <input {...input} type="number" min="1" max="8" value="1" />
+                  <input {...input} type="number" min="1" max="8" />
                 </FormField>
               )}
             </Field>
