@@ -11,7 +11,8 @@ import {
 import {
   ConnectLichess,
   Challenge,
-  TokenChecker
+  TokenChecker,
+  Game
 } from "./components";
 
 import {
@@ -45,6 +46,10 @@ function App() {
                 exact
                 path="/challenge"
                 component={Challenge} />
+              <Route
+                exact
+                path="/game"
+                component={Game} />
             </Switch>
           </ContentWrapper>
         </Router>

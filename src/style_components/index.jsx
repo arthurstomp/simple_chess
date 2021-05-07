@@ -10,7 +10,7 @@ export const HeaderWrapper = styled.div`
 
 export const HeaderTitle = styled.div`
   font-size: 4rem;
-  margin-top: 144px;
+  margin-top: 40px;
 `;
 
 export const ContentWrapper = styled.div``;
@@ -19,6 +19,7 @@ export const CenteredContent = styled.div`
   width: 100%;
   min-height: 300px;
   height: 100%;
+  margin-top: 20px;
 `;
 
 export const Button = styled.button`

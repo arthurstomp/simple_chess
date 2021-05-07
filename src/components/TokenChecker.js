@@ -7,20 +7,23 @@ import {
 
 export default function TokenChecker(props) {
   const accessTokenContext = useContext(AppContext)
-  const { setAccessToken } = accessTokenContext
-  const [pushToChallenge, setPushToChallenge] = useState(false)
+  const { accessToken, setAccessToken } = accessTokenContext
+  const [pushToHome, setPushToHome] = useState(false)
+
   useEffect(() => {
     const token = window.localStorage.getItem('LICHESS_TOKEN')
     if(token) {
       window.localStorage.setItem('LICHESS_TOKEN', token)
       setAccessToken(token)
-      setPushToChallenge(true)
+      setPushToHome(false)
+    } else if(!accessToken) {
+      setPushToHome(true)
     }
   })
 
-  if(pushToChallenge) {
-    return <Redirect to={"/challenge"} />
-  } else {
-    return null
+  if(pushToHome) {
+    return <Redirect to={"/"} />
   }
+
+  return null
 }

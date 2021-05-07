@@ -44,17 +44,22 @@ const ChallengeWrapper = styled.div`
 `
 
 const ChallengeForm = props => {
-  const { challengeAI, setGame } = props
+  const { accessToken, setGame, history } = props
+  const lichess = new Lichess(accessToken);
   const submit = values => {
-    challengeAI(values.level)
+    lichess.challengeAI(values.level)
       .then(res => {
-        if(res.status === 200) {
+        if(res.status === 201) {
           return res.json()
         } else {
           throw new Error('Failed to create challenge')
         }
       })
-      .then(data => setGame(data.challenge))
+      .then(data => {
+        console.log(data)
+        setGame(data)
+        history.push('/game')
+      })
       .catch(console.error)
   }
   return (
@@ -64,7 +69,7 @@ const ChallengeForm = props => {
         render={({ handleSubmit, submitting, form, pristine }) => (
           <form onSubmit={handleSubmit}>
             <label>AI Level</label>
-            <Field name="opponentUsername">
+            <Field name="level">
               {({ input, meta }) => (
                 <FormField>
                   <input {...input} type="number" min="1" max="8" />
@@ -84,14 +89,17 @@ const ChallengeForm = props => {
 }
 
 export default function Challenge(props) {
+  const { history } = props
   const appContext = useContext(AppContext)
   const accessToken = appContext.accessToken
-  const lichess = new Lichess(accessToken);
 
   return (
     <CenteredContent>
       <ChallengeWrapper>
-        <ChallengeForm challengeAI={lichess.challengeAI} setGame={appContext.setGame} />
+        <ChallengeForm
+          history={history}
+          accessToken={accessToken}
+          setGame={appContext.setGame} />
       </ChallengeWrapper>
     </CenteredContent>
   )

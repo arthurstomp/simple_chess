@@ -7,7 +7,7 @@ export default class Lichess {
     const reader = res.body.getReader()
     const read = result => {
       if(result.done) {
-        console.log('User events: Done.')
+        console.log('events: Done.')
         return
       } else {
         const events = this.processNDJSON(result.value)
@@ -26,6 +26,18 @@ export default class Lichess {
       .map(JSON.parse)
   }
 
+  account() {
+    const url = 'https://lichess.org/api/account'
+    const params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
+    }
+
+    return fetch(url, params)
+  }
+
   listenUserEvents(callback) {
     console.log('Listen lichess user events')
     fetch('https://lichess.org/api/stream/event',{
@@ -37,17 +49,53 @@ export default class Lichess {
     .then(res => { this.readStream(res, callback) })
     .catch(err => { console.log(err) })
   }
+  
+  listenGameEvents(gameId, callback) {
+    const url = `https://lichess.org/api/board/game/stream/${gameId}`
+    const params = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
+    }
+    fetch(url, params)
+      .then(res => { this.readStream(res, callback) })
+      .catch(err => { console.log(err) })
+  }
+
+  move(gameId, move) {
+    const url = `https://lichess.org/api/board/game/${gameId}/move/${move}`
+    const params = {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.token}`,
+      },
+    }
+
+    return fetch(url, params)
+  }
+
+  resign(gameId) {
+    const url = `https://lichess.org/api/board/game/${gameId}/resign`
+    const params = {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.token}`,
+      },
+    }
+
+    return fetch(url, params)
+  }
 
   challengeAI(level) {
     const url = `https://lichess.org/api/challenge/ai`
-    const body = { level }
     const params = {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(body)
+      body: `level=${level}`
     }
 
     return fetch(url, params)
